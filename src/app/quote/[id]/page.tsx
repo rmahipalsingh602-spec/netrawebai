@@ -299,29 +299,38 @@ function QuoteDetailInner() {
       {/* Main Status Header Card */}
       <div className="bg-[#1C2541]/80 rounded-3xl p-6 sm:p-8 border border-slate-700/60 shadow-xl backdrop-blur-md mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-700/60">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                {enquiry.packageType.toUpperCase()} DUKAAN
-              </span>
-              <span className={`text-xs font-bold px-2.5 py-1 rounded-full border ${
-                isPaid 
-                  ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/30'
-                  : isQuoteAccepted
-                  ? 'bg-blue-950/60 text-blue-300 border-blue-500/30'
-                  : isQuoted
-                  ? 'bg-amber-950/60 text-amber-300 border-amber-500/30'
-                  : 'bg-slate-800 text-slate-300 border-slate-700'
-              }`}>
-                {isPaid ? 'Payment Confirmed & In Progress' : isQuoteAccepted ? 'Quote Accepted — Ready for Payment' : isQuoted ? 'Quote Ready for Review' : 'Under Engineering Review'}
-              </span>
+          <div className="flex items-start sm:items-center gap-4">
+            <div className="relative w-14 h-14 rounded-2xl overflow-hidden shadow-md shadow-amber-500/20 border border-amber-500/30 bg-[#0F172A] shrink-0">
+              <img
+                src="/images/logo.png"
+                alt="Netrawebai Logo"
+                className="w-full h-full object-cover object-center"
+              />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-              {enquiry.businessName}
-            </h1>
-            <p className="text-xs text-slate-400 mt-1">
-              Customer: <span className="text-slate-200 font-medium">{enquiry.customerName}</span> • Requested on {new Date(enquiry.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
-            </p>
+            <div>
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className="text-xs uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                  {enquiry.packageType.toUpperCase()} DUKAAN
+                </span>
+                <span className={`text-xs font-bold px-2.5 py-1 rounded-full border ${
+                  isPaid 
+                    ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/30'
+                    : isQuoteAccepted
+                    ? 'bg-blue-950/60 text-blue-300 border-blue-500/30'
+                    : isQuoted
+                    ? 'bg-amber-950/60 text-amber-300 border-amber-500/30'
+                    : 'bg-slate-800 text-slate-300 border-slate-700'
+                }`}>
+                  {isPaid ? 'Payment Confirmed & In Progress' : isQuoteAccepted ? 'Quote Accepted — Ready for Payment' : isQuoted ? 'Quote Ready for Review' : 'Under Engineering Review'}
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
+                {enquiry.businessName}
+              </h1>
+              <p className="text-xs text-slate-400 mt-1">
+                Customer: <span className="text-slate-200 font-medium">{enquiry.customerName}</span> • Requested on {new Date(enquiry.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </p>
+            </div>
           </div>
 
           <div className="text-left sm:text-right">

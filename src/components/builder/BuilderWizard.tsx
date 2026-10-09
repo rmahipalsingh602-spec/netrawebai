@@ -232,10 +232,17 @@ function BuilderContent() {
             >
               <ArrowLeft className="w-4 h-4" />
             </Link>
+            <div className="w-8 h-8 rounded-lg overflow-hidden border border-amber-400/40 bg-[#0F172A] shrink-0 shadow-sm hidden sm:block">
+              <img
+                src="/images/logo.png"
+                alt="Netrawebai Logo"
+                className="w-full h-full object-cover object-center"
+              />
+            </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-white text-sm sm:text-base">
-                  Netrawebai Website Builder
+                  Netraweb<span className="text-amber-400">ai</span> Website Builder
                 </span>
                 <span className="text-[10px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded font-mono font-semibold">
                   Step {currentStep}/7

@@ -237,6 +237,13 @@ function OrderFormInner() {
     <div className="max-w-4xl mx-auto">
       {/* Intro Header */}
       <div className="text-center mb-10">
+        <div className="relative w-16 h-16 mx-auto mb-4 rounded-2xl overflow-hidden shadow-xl shadow-amber-500/20 border-2 border-amber-500/40 bg-[#0F172A] p-0.5 transform hover:scale-105 transition-transform duration-300">
+          <img
+            src="/images/logo.png"
+            alt="Netrawebai Logo"
+            className="w-full h-full object-cover object-center rounded-xl"
+          />
+        </div>
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-4">
           <Sparkles className="w-3.5 h-3.5 text-amber-300" />
           <span className="text-white font-bold">{currentLangInfo.icon} {currentLangInfo.greeting}!</span>
@@ -269,8 +276,15 @@ function OrderFormInner() {
       {/* Success View */}
       {submitSuccess ? (
         <div className="bg-[#1C2541]/90 rounded-3xl p-8 sm:p-12 border border-emerald-500/30 shadow-2xl backdrop-blur-xl animate-in zoom-in-95 duration-300">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto mb-6">
-            <CheckCircle2 className="w-8 h-8" />
+          <div className="relative w-20 h-20 rounded-2xl overflow-hidden shadow-xl shadow-amber-500/20 border-2 border-amber-500/40 bg-[#0F172A] mx-auto mb-6 p-0.5">
+            <img
+              src="/images/logo.png"
+              alt="Netrawebai Logo"
+              className="w-full h-full object-cover object-center rounded-xl"
+            />
+            <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-emerald-500 border-2 border-[#1C2541] flex items-center justify-center text-white shadow">
+              <CheckCircle2 className="w-4 h-4" />
+            </div>
           </div>
 
           <div className="text-center max-w-xl mx-auto">

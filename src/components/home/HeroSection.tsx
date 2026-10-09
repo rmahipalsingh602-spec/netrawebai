@@ -102,12 +102,19 @@ export default function HeroSection() {
           {/* Left Column: Headline, Copy, Search, CTAs */}
           <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
             
-            {/* Mission Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 text-xs font-semibold backdrop-blur-md shadow-sm">
-              <span className="flex h-2 w-2 rounded-full bg-blue-400 animate-pulse" />
+            {/* Mission Badge with 3D Logo */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 via-blue-500/10 to-indigo-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold backdrop-blur-md shadow-lg shadow-amber-500/5">
+              <div className="w-5 h-5 rounded-lg overflow-hidden border border-amber-400/50 bg-[#0F172A] shrink-0 shadow-sm">
+                <img
+                  src="/images/logo.png"
+                  alt="Netrawebai Logo"
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
+              <span className="flex h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
               <span>Har Dukaan Online — हर दुकान ऑनलाइन</span>
               <span className="text-slate-500">•</span>
-              <span className="text-slate-300">Your Shop. Your Style. Your Website.</span>
+              <span className="text-slate-200">Your Shop. Your Style. Your Website.</span>
             </div>
 
             {/* Main Headline */}

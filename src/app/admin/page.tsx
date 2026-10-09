@@ -213,12 +213,19 @@ export default function AdminDashboardPage() {
         {!isAuthenticated ? (
           /* Login Screen */
           <div className="max-w-md mx-auto my-16 bg-[#1C2541]/90 rounded-3xl p-8 sm:p-10 border border-slate-700/60 shadow-2xl backdrop-blur-xl">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white mx-auto mb-6 shadow-lg shadow-blue-600/30">
-              <Lock className="w-7 h-7" />
+            <div className="relative w-20 h-20 mx-auto mb-6 rounded-2xl overflow-hidden shadow-xl shadow-amber-500/20 border-2 border-amber-500/40 bg-[#0F172A] flex items-center justify-center p-1">
+              <img
+                src="/images/logo.png"
+                alt="Netrawebai Logo"
+                className="w-full h-full object-cover object-center rounded-xl"
+              />
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-blue-600 border-2 border-[#1C2541] flex items-center justify-center text-white shadow">
+                <Lock className="w-3 h-3" />
+              </div>
             </div>
 
             <h1 className="text-2xl font-extrabold text-white text-center">
-              Netrawebai Owner Portal
+              Netraweb<span className="text-amber-400">ai</span> Owner Portal
             </h1>
             <p className="mt-2 text-xs text-slate-400 text-center leading-relaxed">
               Secure administrative access for managing customer website orders, issuing quotes, and monitoring payment settlements.
@@ -270,16 +277,25 @@ export default function AdminDashboardPage() {
           <div className="space-y-8">
             {/* Top Bar with Metrics */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs uppercase font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    Active Session
-                  </span>
-                  <span className="text-xs text-slate-400">Netrawebai Rajasthan Operations</span>
+              <div className="flex items-center gap-4">
+                <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-md shadow-amber-500/20 border border-amber-500/30 bg-[#0F172A] shrink-0">
+                  <img
+                    src="/images/logo.png"
+                    alt="Netrawebai Logo"
+                    className="w-full h-full object-cover object-center"
+                  />
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-                  Enquiry & Order Management
-                </h1>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs uppercase font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      Active Session
+                    </span>
+                    <span className="text-xs text-slate-400">Netrawebai Rajasthan Operations</span>
+                  </div>
+                  <h1 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
+                    Enquiry & Order Management
+                  </h1>
+                </div>
               </div>
 
               <div className="flex items-center gap-3">

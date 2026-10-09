@@ -53,13 +53,24 @@ export default function Footer() {
           
           {/* Brand info */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md">
-                <Store className="w-5 h-5" />
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-11 h-11 rounded-xl overflow-hidden shadow-md shadow-amber-500/20 border border-amber-500/30 group-hover:border-amber-400 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.35)] transition-all duration-300 transform group-hover:scale-105 bg-[#0F172A] shrink-0">
+                <img
+                  src="/images/logo.png"
+                  alt="Netrawebai Logo"
+                  className="w-full h-full object-cover object-center"
+                />
               </div>
-              <span className="font-extrabold text-2xl tracking-tight text-white">
-                Netraweb<span className="text-blue-500">ai</span>
-              </span>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-2xl tracking-tight text-white group-hover:text-amber-300 transition-colors">
+                    Netraweb<span className="text-amber-400">ai</span>
+                  </span>
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                    India
+                  </span>
+                </div>
+              </div>
             </Link>
             <p className="text-slate-300 text-sm leading-relaxed max-w-sm">
               {t.footer.description}

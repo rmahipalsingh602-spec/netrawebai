@@ -30,10 +30,17 @@ export default function StorefrontBanner({ shop, isMobileFrame, onToggleFrame }:
         <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
           <Link
             href="/"
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-slate-700 transition-colors"
+            className="flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 px-2.5 py-1.5 rounded-lg border border-slate-700 transition-colors group"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Netrawebai</span>
+            <div className="w-4 h-4 rounded overflow-hidden border border-amber-400/40 bg-[#0F172A] shrink-0 shadow-sm">
+              <img
+                src="/images/logo.png"
+                alt="Netrawebai Logo"
+                className="w-full h-full object-cover object-center"
+              />
+            </div>
+            <span>Netraweb<span className="text-amber-400">ai</span></span>
           </Link>
 
           <div className="flex items-center gap-2">

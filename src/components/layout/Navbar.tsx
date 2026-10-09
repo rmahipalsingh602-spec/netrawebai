@@ -63,15 +63,19 @@ function NavbarContent() {
           
           {/* Logo & Brand */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              <Store className="w-5 h-5" />
+            <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-md shadow-amber-500/20 border border-amber-500/30 group-hover:border-amber-400 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.35)] transition-all duration-300 transform group-hover:scale-105 bg-[#0F172A] shrink-0">
+              <img
+                src="/images/logo.png"
+                alt="Netrawebai Logo"
+                className="w-full h-full object-cover object-center"
+              />
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-blue-400 transition-colors">
-                  Netraweb<span className="text-blue-500">ai</span>
+                <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-amber-300 transition-colors">
+                  Netraweb<span className="text-amber-400">ai</span>
                 </span>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
                   India
                 </span>
               </div>

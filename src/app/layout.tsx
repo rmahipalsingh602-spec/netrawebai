@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://netrawebai.in'),
   title: "Netrawebai — Har Dukaan Online | Premium Indian Business Website Builder",
   description: "Create a beautiful, mobile-friendly website for your local shop in India. Explore category designs, customize shop details, add products, and connect with customers on WhatsApp.",
   keywords: [
@@ -15,11 +16,29 @@ export const metadata: Metadata = {
     "marwad local business",
   ],
   authors: [{ name: "Netrawebai Team" }],
+  icons: {
+    icon: [
+      { url: '/images/logo.png', sizes: 'any' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: [
+      { url: '/apple-icon.png' },
+    ],
+    shortcut: ['/favicon.ico'],
+  },
   openGraph: {
     title: "Netrawebai — Har Dukaan Online",
     description: "Your Shop. Your Style. Your Website. Connect your physical shop to online customers with ready-to-use business website designs.",
     url: "https://netrawebai.in",
     siteName: "Netrawebai",
+    images: [
+      {
+        url: '/images/logo.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Netrawebai 3D Logo',
+      },
+    ],
     type: "website",
   },
 };

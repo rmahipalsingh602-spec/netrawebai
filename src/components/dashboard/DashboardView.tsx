@@ -67,18 +67,27 @@ export default function DashboardView() {
           
           {/* Top Dashboard Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                  Shop Owner Dashboard
-                </h1>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded font-mono font-bold">
-                  Demo Mode
-                </span>
+            <div className="flex items-center gap-4">
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-md shadow-amber-500/20 border border-amber-500/30 bg-[#0F172A] shrink-0">
+                <img
+                  src="/images/logo.png"
+                  alt="Netrawebai Logo"
+                  className="w-full h-full object-cover object-center"
+                />
               </div>
-              <p className="text-xs text-slate-400 mt-1">
-                Manage your shop websites, review visitor inquiry links, and edit product catalogs.
-              </p>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                    Shop Owner Dashboard
+                  </h1>
+                  <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded font-mono font-bold">
+                    Demo Mode
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Manage your shop websites, review visitor inquiry links, and edit product catalogs.
+                </p>
+              </div>
             </div>
 
             <div className="flex items-center gap-3">
