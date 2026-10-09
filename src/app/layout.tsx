@@ -18,13 +18,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Netrawebai Team" }],
   icons: {
     icon: [
-      { url: '/images/logo.png', sizes: 'any' },
-      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/images/logo.png?v=3', type: 'image/png' },
+      { url: '/logo.png?v=3', type: 'image/png' },
+      { url: '/favicon.ico?v=3', sizes: 'any' },
     ],
     apple: [
-      { url: '/apple-icon.png' },
+      { url: '/images/logo.png?v=3' },
     ],
-    shortcut: ['/favicon.ico'],
+    shortcut: ['/images/logo.png?v=3'],
   },
   openGraph: {
     title: "Netrawebai — Har Dukaan Online",
@@ -59,6 +60,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="hi" className="h-full scroll-smooth">
+      <head>
+        <link rel="icon" type="image/png" href="/images/logo.png?v=3" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3" />
+        <link rel="shortcut icon" href="/images/logo.png?v=3" />
+        <link rel="apple-touch-icon" href="/images/logo.png?v=3" />
+      </head>
       <body className="min-h-full flex flex-col bg-[#0B132B] text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
         <LanguageProvider>
           {children}
