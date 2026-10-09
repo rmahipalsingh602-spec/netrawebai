@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Enquiry {
+  id                String    @id @default(cuid())
+  enquiryNumber     String    @unique // e.g. NW-2026-1001
+  accessToken       String    @unique @default(cuid()) // Secure customer token for viewing quote/status without login
+  
+  // Customer details
+  customerName      String
+  email             String
+  phone             String
+  whatsapp          String?
+  
+  // Business details
+  businessName      String
+  category          String
+  preferredTemplate String?
+  
+  // Requirements & Scope
+  pagesNeeded       String?   // JSON string of requested pages
+  featuresNeeded    String?   // JSON string of requested features
+  productsServices  String?
+  preferredColors   String?
+  domainNeeded      Boolean   @default(false)
+  domainName        String?
+  budgetRange       String?
+  targetDate        String?
+  referenceLinks    String?
+  additionalNotes   String?
+  
+  // Status: pending, reviewing, quoted, quote_accepted, in_progress, completed, cancelled
+  status            String    @default("pending")
+  
+  // Quote details (prepared by owner)
+  quotedAmount      Int?      // in INR (integer rupees)
+  quoteScope        String?   // Markdown or text of inclusions
+  quoteExclusions   String?
+  quoteTerms        String?
+  quoteSentAt       DateTime?
+  quoteAcceptedAt   DateTime?
+  
+  // Package order (if fixed package selected: starter, smart, royal)
+  packageType       String?   // "smart", "royal", or "custom"
+  
+  // Payment tracking
+  paymentStatus     String    @default("unpaid") // unpaid, pending, paid, refunded, failed
+  razorpayOrderId   String?
+  razorpayPaymentId String?
+  razorpaySignature String?
+  paidAmount        Int?
+  paidAt            DateTime?
+
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  orders            Order[]
+  payments          Payment[]
+
+  @@index([email])
+  @@index([phone])
+  @@index([status])
+}
+
+model Order {
+  id              String    @id @default(cuid())
+  orderNumber     String    @unique // e.g. ORD-2026-1001
+  enquiryId       String
+  enquiry         Enquiry   @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  
+  orderType       String    // "fixed_package" | "approved_quote"
+  packageType     String?   // "smart" | "royal"
+  description     String
+  amount          Int       // in INR (integer rupees)
+  currency        String    @default("INR")
+  
+  status          String    @default("created") // created, paid, failed, cancelled
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  payments        Payment[]
+
+  @@index([enquiryId])
+}
+
+model Payment {
+  id                String    @id @default(cuid())
+  enquiryId         String
+  enquiry           Enquiry   @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  orderId           String?
+  order             Order?    @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  
+  razorpayOrderId   String    @unique
+  razorpayPaymentId String?   @unique
+  razorpaySignature String?
+  
+  amount            Int       // in INR (rupees)
+  currency          String    @default("INR")
+  status            String    // created, authorized, captured, failed, refunded
+  
+  method            String?   // upi, card, netbanking, wallet
+  errorDescription  String?
+  
+  // Webhook event idempotency tracking
+  idempotencyKey    String?   @unique
+  rawEventPayload   String?
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([enquiryId])
+  @@index([razorpayOrderId])
+  @@index([razorpayPaymentId])
+}
+
+model WebhookLog {
+  id          String   @id @default(cuid())
+  eventId     String   @unique
+  eventType   String
+  receivedAt  DateTime @default(now())
+  payload     String
+  processed   Boolean  @default(true)
+}
