@@ -4,7 +4,9 @@ import crypto from 'crypto';
 import { Enquiry, Order, Payment, WebhookLog, PackageType, EnquiryStatus, PaymentStatus } from './types';
 import { FIXED_PACKAGES } from '../packages';
 
-const DATA_DIR = path.join(process.cwd(), '.data');
+const DATA_DIR = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
+  ? path.join('/tmp', '.data')
+  : path.join(process.cwd(), '.data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 
 interface DatabaseSchema {
@@ -13,6 +15,9 @@ interface DatabaseSchema {
   payments: Payment[];
   webhookLogs: WebhookLog[];
 }
+
+// In-memory fallback for serverless safety
+let inMemoryDb: DatabaseSchema | null = null;
 
 // In-memory mutex for safe atomic writes
 let isWriting = false;
@@ -74,7 +79,7 @@ function getInitialSeed(): DatabaseSchema {
         preferredColors: 'Obsidian Navy & Electric Blue',
         domainNeeded: true,
         domainName: 'mahadevmobile.in',
-        budgetRange: '₹1,499 - ₹2,999',
+        budgetRange: ' ₹100 - ₹1,499 - ₹2,999',
         targetDate: 'Within 3 days',
         referenceLinks: 'https://mahadevmobile.demo',
         additionalNotes: 'Need 0% EMI badge and brand warranty tags on all products.',
@@ -193,31 +198,31 @@ function getInitialSeed(): DatabaseSchema {
 async function loadDb(): Promise<DatabaseSchema> {
   await acquireLock();
   try {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
+    if (!inMemoryDb) {
+      inMemoryDb = getInitialSeed();
     }
 
-    if (!fs.existsSync(DB_FILE)) {
-      const initial = getInitialSeed();
-      fs.writeFileSync(DB_FILE, JSON.stringify(initial, null, 2), 'utf-8');
-      return initial;
-    }
-
-    const raw = fs.readFileSync(DB_FILE, 'utf-8');
     try {
+      if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+      }
+
+      if (!fs.existsSync(DB_FILE)) {
+        fs.writeFileSync(DB_FILE, JSON.stringify(inMemoryDb, null, 2), 'utf-8');
+        return inMemoryDb;
+      }
+
+      const raw = fs.readFileSync(DB_FILE, 'utf-8');
       const data = JSON.parse(raw) as DatabaseSchema;
-      // Ensure all arrays exist
-      return {
-        enquiries: Array.isArray(data.enquiries) ? data.enquiries : [],
-        orders: Array.isArray(data.orders) ? data.orders : [],
-        payments: Array.isArray(data.payments) ? data.payments : [],
-        webhookLogs: Array.isArray(data.webhookLogs) ? data.webhookLogs : [],
+      inMemoryDb = {
+        enquiries: Array.isArray(data.enquiries) ? data.enquiries : inMemoryDb.enquiries,
+        orders: Array.isArray(data.orders) ? data.orders : inMemoryDb.orders,
+        payments: Array.isArray(data.payments) ? data.payments : inMemoryDb.payments,
+        webhookLogs: Array.isArray(data.webhookLogs) ? data.webhookLogs : inMemoryDb.webhookLogs,
       };
-    } catch (parseErr) {
-      console.error('Failed to parse database file, restoring backup', parseErr);
-      const initial = getInitialSeed();
-      fs.writeFileSync(DB_FILE, JSON.stringify(initial, null, 2), 'utf-8');
-      return initial;
+      return inMemoryDb;
+    } catch {
+      return inMemoryDb;
     }
   } finally {
     releaseLock();
@@ -227,13 +232,17 @@ async function loadDb(): Promise<DatabaseSchema> {
 async function writeDb(data: DatabaseSchema): Promise<void> {
   await acquireLock();
   try {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
+    inMemoryDb = data;
+    try {
+      if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+      }
+      const tempFile = `${DB_FILE}.${Date.now()}.tmp`;
+      fs.writeFileSync(tempFile, JSON.stringify(data, null, 2), 'utf-8');
+      fs.renameSync(tempFile, DB_FILE);
+    } catch (e) {
+      console.warn('Filesystem write bypassed, using memory state:', e);
     }
-    // Atomic write via temporary file
-    const tempFile = `${DB_FILE}.${Date.now()}.tmp`;
-    fs.writeFileSync(tempFile, JSON.stringify(data, null, 2), 'utf-8');
-    fs.renameSync(tempFile, DB_FILE);
   } finally {
     releaseLock();
   }
